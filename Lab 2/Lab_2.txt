@@ -1,0 +1,71 @@
+Lei the first for this lab were to download and install wireshark and to capture a packet using wireshark.
+If you need screenshots for either let me know.
+
+LAB 2
+
+----------
+Q3)
+----------
+
+IP HEADER
+
+----------------------------------------
+|   4	|   5	| 00000000 |    40     |
+----------------------------------------
+|           14563          |  0  |  0  |
+----------------------------------------
+|     128     |    TCP(6)  | DISABLED  |
+----------------------------------------
+|            149.153.106.145           |
+----------------------------------------
+|            149.153.31.110            |
+----------------------------------------
+
+----------
+Q4) 
+----------
+
+VERSION: This IP header field details a 4 bit version used for the packet i.e (IPV4).
+
+HEADER LENGTH: This is a value that details the length of the IP header in 32 bit increments.
+
+TOS(Type Of Service): This a 8 bit length binary number that details the QOS(Quality Of Service)
+such as Precdence, Delay & reliability.
+
+TOTAL LENGTH: This details the length of the IP packet which you get by (Header Length + Payload Length).
+Max Size for a packet is (2^16 - 20) bytes.
+
+IDENIFICATION: This is a unique 16 bit value for every datagram for a given source address.
+
+FLAGS: is a 3 bit field that helps you control and identify fragments.
+
+Bit 0 = reversed and set to 0.
+Bit 1 = no fragment.
+Bit 2 = more fragments.
+
+FRAGMEN OFFSET: 
+
+TTL(Time To Live): Is a counter that is set and is decermented when a packet goes through a router.
+This is needed as a packet can end up wandering aimlessly through the same routers.
+
+PROTOCOL: This indicataes the protocol that will be used (i.e TCP/UDP)
+
+HEADER CHECKSUM: This is a calculated 16 bit value of the content of the IP header to check if the header itself is not corrupt.
+
+SOURCE IP: This is the source address the packet was send from.
+DESTINATION IP: This the destination address that the packet is going to.
+
+PADDING: Padding is used to make sure that the IP packet header has a length that is mutiple of 32 bits.
+
+OPTIONS: these are options you can provide on a packet. One of these options is to record the route that the packet uses to get to it's destination. 
+
+----------
+Q5)
+----------
+
+The major difference between the packet you provided and the one I have captured and recorded in the IP header in Question 3 is,
+that the protocol is different. The packet you provided uses ICMP whereas my packet uses TCP(6).
+This is a big difference as protocols like TCP and UDP are for transfering application data.
+While ICMP is a control protocol that transfers information about other protocols. 
+
+----------
