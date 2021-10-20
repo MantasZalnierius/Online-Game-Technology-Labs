@@ -43,7 +43,8 @@ Bit 0 = reversed and set to 0.
 Bit 1 = no fragment.
 Bit 2 = more fragments.
 
-FRAGMEN OFFSET: 
+FRAGMEN OFFSET: This is used to identify a sequence of fragments in the frame. 
+It generally indicates number of data bytes preceding or ahead of the fragment. (2^16 - 20) bytes
 
 TTL(Time To Live): Is a counter that is set and is decermented when a packet goes through a router.
 This is needed as a packet can end up wandering aimlessly through the same routers.
