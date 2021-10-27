@@ -22,4 +22,6 @@ The reason for this is because this interface matches the most bits with the pac
 Q3)
 ---------------
 
-The answer is 1. (192.24.6.0)
+1. 192.24.6.0   -> Will hop to D (192.24.0.0/18)
+2. 192.24.14.32 -> Will hop to B (192.24.12.0/22)
+3. 192.24.54.0  -> Will hop to B (192.24.12.0/22) 
