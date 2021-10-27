@@ -15,7 +15,7 @@ And also the prefix is of size 29 which is bigger than any of the other routes.
 Q2)
 ---------------
 
-The output interface for this packet will be 5 (i.e 131.28.0.0/14)
+The output interface for this packet will be 1 (i.e 131.22.0.0/14)
 The reason for this is because this interface matches the most bits with the packet address.
 
 ---------------
