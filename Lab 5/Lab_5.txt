@@ -1,0 +1,255 @@
+----------
+LAB 5
+----------
+
+Q1)
+----------
+
+TCP HEADER
+
+--------------------------------------------------------------------------------------------
+|                   51874                      |                   8080                    |
+--------------------------------------------------------------------------------------------
+|                                          3300252082                                      |
+--------------------------------------------------------------------------------------------
+|                                          4264216283                                      |
+--------------------------------------------------------------------------------------------
+|      5      |     0     | Acknowledgment set |                   8208                    |
+|             |           |         1          |                                           |
+--------------------------------------------------------------------------------------------
+|    		    46412                      |                    0                      |
+|     		                               |                                           |
+--------------------------------------------------------------------------------------------
+|                                              0                                           |
+|                                                                                          |
+--------------------------------------------------------------------------------------------
+
+Source Port Number:
+The source port number repersents the port number of the sending device. 
+
+Destination Port Nunber:
+The destination port number repersents the port number of the receiving device. 
+
+Sequence Number: 
+The sequence number is a counter that is used to keep track of every byte 
+sent outward by a host. 
+
+Acknowledgment Number:
+The acknowledgment number is the sequence number of the next byte the receiver
+expects to receive.
+
+Data Offset:
+The data offset stores the total size of TCP header in multiples of 4 bytes.
+
+Reserved Data:
+The reserved data in TCP headers always have values of 0.
+This fields algins the total header size by mutiples of 4 bytes.
+
+Control Flags:
+TCP uses a set of 6 standard and 3 extended control flags each either 0 off or 1 on.
+
+Window Size:
+TCP senders uses a number called window size to regulate how much data they send to the 
+receiver before requiring an acknowledgment in return. 
+
+Checksum:
+The checksum value is a calculated value in the TCP header to check messages that are
+corrupt or tampered with. 
+
+Urgent Pointer:
+The urgent pointer is set to 0. But in conjunction with one of the control flags,
+it can be used as a data offset to mark a subnet of a message. 
+
+Optional Data:
+This is used for support for special acknowledggment and window scaling algorithms.
+----------
+
+Q2)
+
+----------
+
+UDP HEADER
+
+--------------------------------------------------------------------------------------------
+|                    54925                     |                  54915                    |
+--------------------------------------------------------------------------------------------
+|                     271                      |                  57129                    |
+--------------------------------------------------------------------------------------------
+|                                             263                                          |
+--------------------------------------------------------------------------------------------
+
+Source Port Number:
+The source port number repersents the port number of the sending device. 
+
+Destination Port Number:
+The destination port number repersents the port number of the receiving device. 
+
+Length:
+The length repersents the total size of each datagram including the header and data.
+
+Checksum:
+The checksum value is a calculated value in the UDP header to check if incoming data are
+corrupt or tampered with. 
+----------
+
+Q3)
+----------
+
+Checksum = 0x0000a520
+
+Source address = 192.168.0.101
+
+Dest address = 192.168.0.10
+
+Protocol = 17
+
+Length = 16
+
+Source Port = 49905
+
+Dst Port = 50950000
+
+Payload Length (in Hex) = 
+{
+  01 00 
+  01 00 
+  00 0d  
+  00 08
+}
+
+
+
+  11000000.10101000
++ 00000000.01100101
+-------------------
+  11000001.00001101 (SRC ADDRESS MADE INTO 16 BIT)
+
+  11000000.10101000
++ 00000000.00001010
+-------------------
+  11000000.10110010 (DEST ADDRESS MADE INTO 16 BIT)
+
+  11000001.00001101
++ 11000000.10110010
+-------------------
+  10000001.11000000 (SRC ADDRESS AND DEST ADDRESS ADDED TOGETHER)
+
+  10000001.11000000
++ 00000000.00010001
+-------------------
+  10000001.11010001 (PROTOCOL ADDED (IN THIS CASE UDP PROTOCOL))
+
+  10000001.11010001
++ 00000000.00010000
+-------------------
+  10000001.11100001 (THE LENGTH OF UDP PACKET WAS ADDED HERE)
+
+  10000001.11100001
++ 11000010.11110001
+-------------------
+  01000100.11010011 (THE SRC PORT WAS ADDED HERE)
+
+  01000100.11010011
++ 00010011.11100111
+-------------------
+  01011000.10111010 (THE DEST PORT WAS ADDED HERE)
+
+  01011000.10111010
++ 00000000.00010000
+-------------------
+  01011000.11001010 (THE LENGHT OF THE UDP PACKET WAS ADDED HERE AGAIN)
+
+(HERE WILL BE ADDITIONS FOR THE PAYLOAD LENGTH)
+
+  01011000.11001010
++ 00000001.00000000
+-------------------
+  01011001.11001010
+
+  01011001.11001010
++ 00000001.00000000
+-------------------
+  01011010.11001010
+
+  01011010.11001010
++ 00000000.00001101
+-------------------
+  01011010.11010111
+
+  01011010.11010111
++ 00000000.00001000
+-------------------
+  01011010.11011111
+
+  01011010.11011111
+  -----------------
+  10100101.00100000 (AFTER THE ADDTION OF THE PAYLOAD LENGTH THE 16 BIT VALUE WILL BE INVERTED (i.e 0 = 1/1 = 0)) 
+
+  HEX VALUE = A520 WHICH IS THE SAME AS THE CHECKSUM IN THE PACKECT CAPTURED VIA WIRESHARK.
+
+----------
+Q4)
+----------
+
+I captured a packet while I was watching a youtube video and I discovered that Youtube uses the TCP protocol for the pre-recoreded videos.
+The reason for this is because video streaming uses pre-fetching and buffering to achieve smooth video play-out. 
+TCP provides such buffer as well as the reliable transmission guarantee for no loss of frame.
+
+I also captured a packet from Youtube Live (Which is a streaming platform for Youtube) and the protocol used in Youtube Live is UDP.
+The reason for this is because there is little pre-fetching that can be done in live streaming, the more the buffering the greater the video play-out delay.
+So UDP is a good choice for streaming apps like Youtube live.
+
+After capturing both TCP and UDP packets, I can say that the UDP protocol is used where little pre-fetching can be done, in this case it would be applications
+such as massive online games and streaming applications, as these have little things that can be pre-fetched and buffered. Also UDP has little overhead than TCP.
+Which results in better latency.
+
+----------
+Q5)
+----------
+
+A TCP 3 way handshake is where both sides synchronize and acknowledge each other (SYN & ACK).
+The connection in a 3 way handshake is full duplex which means Simultaneous that transmission of data is enabled between connected systems.
+The exchange between connected systems usual goes like this.
+
+1st step SYN     (Client -> Server)
+2nd step SYN/ACK (Server -> Client)
+3rd step ACK     (Client -> Server)
+
+------------      SYN set to 1            ------------
+|          | ---------------------->      |          |
+|          |    SNY & ACK set to 1        |          |
+|  Client  | <----------------------      |  Server  |
+|          |      ACK set to 1            |          |
+|          | Connection established       |          |
+|          | ---------------------->      |          |
+------------                              ------------
+
+----------
+Q6)
+----------
+A TCP 4-way teardown is when a 3-way handshake occurs and for example
+the server might want to end the connection between the client (i.e set FIN flag in packet).
+The FIN flag indicates that the server has ended the transmission of data between the itself and the server.
+The steps are as follows.
+
+1st step SYN     (Client -> Server)
+2nd step SYN/ACK (Server -> Client)
+3rd step ACK     (Client -> Server)
+4th step FIN     (Server -> Client) The setting of the Fin flag will end the connection.
+  
+------------         SYN set to 1            ------------
+|          |    ---------------------->      |          |
+|          |                                 |          |
+|          |       SNY & ACK set to 1        |          |
+|          |    <----------------------      |          |
+|          |                                 |          |
+|          |         ACK set to 1            |          |
+|          |    Connection established       |          |
+|  CLIENT  |    ---------------------->      |  SERVER  |
+|          |                                 |          |
+|          |     FIN flag is set to 1        |          |
+|          |    <----------------------      |          |
+|          |                                 |          |
+------------                                 ------------
+
+
