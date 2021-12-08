@@ -1,0 +1,18 @@
+----------
+LAB 8
+----------
+
+----------
+Q1
+----------
+
+The server has a function called Bind that will bind a port. And also
+has a Listen() function that will wait on the cilent side to start a connect 
+which is another function caled connect().
+
+----------
+Q2
+----------
+
+The difference between the UDP implemention is that the data sent,
+will sent regardless if there is any connection, which could lead to a loss of packets.
